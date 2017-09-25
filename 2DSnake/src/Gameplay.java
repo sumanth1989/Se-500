@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -35,10 +36,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private int xpos = random.nextInt(34);
 	private int ypos = random.nextInt(23);
 	private int score = 0;
-	
+	private int difficulty;
 	
 	public Gameplay() 
-	{
+	{	String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
+		difficulty = Integer.parseInt(inputString);
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
@@ -118,14 +120,61 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		}
 		
 		enemyimage = new ImageIcon("enemy.png");
+		if ( difficulty == 1 ) {
+			if((enemyxpos[xpos] == snakexlength[0]) && (enemyypos[ypos] == snakeylength[0])) {
+			
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+				}
+		}
+		else if ( difficulty == 2) {
+			if((enemyxpos[xpos] == snakexlength[0]) && (enemyypos[ypos] == snakeylength[0])) {
+				
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+				}
+			else if((enemyxpos[xpos] == snakexlength[0])  && (enemyypos[ypos] - snakeylength[0]) == 25) {
+				
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+				}
+			else if((enemyxpos[xpos] - snakexlength[0]) == 25 && (enemyypos[ypos] == snakeylength[0])) {
+				
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+				}
+		}
 		
-		if((enemyxpos[xpos] == snakexlength[0]) && (enemyypos[ypos] == snakeylength[0])) {
-			
-			score++;
-			lengthofsnake++;
-			xpos = random.nextInt(34);
-			ypos = random.nextInt(23);
-			
+		else if ( difficulty == 3) {
+			if((enemyxpos[xpos] == snakexlength[0]) && (enemyypos[ypos] == snakeylength[0])) {
+					
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+					}
+			else if((enemyxpos[xpos] == snakexlength[0])  && (enemyypos[ypos] - snakeylength[0]) == 50) {
+					
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+				}
+			else if((enemyxpos[xpos] - snakexlength[0]) == 50 && (enemyypos[ypos] == snakeylength[0])) {
+					
+				score++;
+				lengthofsnake++;
+				xpos = random.nextInt(34);
+				ypos = random.nextInt(23);
+				}
 		}
 		
 		enemyimage.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
@@ -162,7 +211,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			for (int r = lengthofsnake; r>= 0; r--) {
 				
 				if (r == 0 ) {
-					snakexlength[r] = snakexlength[r] + 25;
+					snakexlength[r] = snakexlength[r] + (25 * difficulty);
 				}
 				
 				else if (r != 0) {
@@ -187,7 +236,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			for (int r = lengthofsnake; r>= 0; r--) {
 				
 				if (r == 0 ) {
-					snakexlength[r] = snakexlength[r] - 25;
+					snakexlength[r] = snakexlength[r] - (25 * difficulty);
 				}
 				
 				else if (r != 0) {
@@ -213,7 +262,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			for (int r = lengthofsnake; r>= 0; r--) {
 				
 				if (r == 0 ) {
-					snakeylength[r] = snakeylength[r] - 25;
+					snakeylength[r] = snakeylength[r] - (25 * difficulty);
 				}
 				
 				else if (r != 0) {
@@ -239,7 +288,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			for (int r = lengthofsnake; r>= 0; r--) {
 				
 				if (r == 0 ) {
-					snakeylength[r] = snakeylength[r] + 25;
+					snakeylength[r] = snakeylength[r] + (25 * difficulty);
 				}
 				
 				else if (r != 0) {
@@ -265,7 +314,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			moves = 0;
 			score = 0;
