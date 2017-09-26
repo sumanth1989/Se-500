@@ -44,7 +44,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private int scoreitr = 0;
 	
 	public Gameplay() 
-	{	String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
+	{	//Auth
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		
+		String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
 		difficulty = Integer.parseInt(inputString);
 		addKeyListener(this);
 		setFocusable(true);
