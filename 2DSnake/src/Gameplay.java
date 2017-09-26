@@ -65,6 +65,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			snakeylength[1] = 100;
 			snakeylength[2] = 100;
 		}
+		
 		// title border
 		g.setColor(Color.WHITE);
 		g.drawRect(24, 10, 851, 55);
@@ -101,7 +102,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		for (int i = 0; i <scoreitr; i++) {
 			if ( i < 10) {
 			g.setFont(new Font("arial", Font.PLAIN, 40));
-			g.drawString((i+1)+":" + scorestore[9 - i] , 980, (150 + (i* 60)));
+			g.drawString((i+1)+"	:	" + scorestore[9 - i] , 980, (150 + (i* 60)));
 			}
 		}
 				
@@ -226,7 +227,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		timer.start();
 		if (right == true) {
 			
@@ -334,7 +334,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -407,7 +406,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 }
