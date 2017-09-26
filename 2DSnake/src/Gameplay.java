@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -37,6 +40,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private int ypos = random.nextInt(23);
 	private int score = 0;
 	private int difficulty;
+	private int [] scorestore = new int [10];
+	private int scoreitr = 0;
 	
 	public Gameplay() 
 	{	String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
@@ -63,9 +68,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		g.setColor(Color.WHITE);
 		g.drawRect(24, 10, 851, 55);
 		
+		// leaderboard
+		g.setColor(Color.GRAY);
+		g.fillRect(875,10, 300, 642);
+		g.setColor(Color.black);
+		g.setFont(new Font("arial", Font.PLAIN, 30));
+		g.drawString("LeaderBoard ", 950, 40);
+		g.setColor(Color.WHITE);
+		g.drawRect(876, 11, 299, 55);
+		g.drawRect(876, 75, 299, 575);
 		// title image
 		titleImage = new ImageIcon("snaketitle.jpg");
 		titleImage.paintIcon(this, g, 25, 11);
+		
 		
 		// gameplay border
 		g.setColor(Color.WHITE);
@@ -80,7 +95,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		g.setFont(new Font("arial", Font.PLAIN, 14));
 		g.drawString("Score: "+score, 780, 30);
 		
-		
+		// leaderboard data
+		Arrays.sort(scorestore);
+		for (int i = 0; i <scoreitr; i++) {
+			if ( i < 10) {
+			g.setFont(new Font("arial", Font.PLAIN, 40));
+			g.drawString((i+1)+":" + scorestore[9 - i] , 980, (150 + (i* 60)));
+			}
+		}
+				
 		// length of snake disp
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("arial", Font.PLAIN, 14));
@@ -185,12 +208,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				left = false;
 				up = false;
 				down = false;
-				
+				scorestore[scoreitr] = score;
 				g.setColor(Color.white);
 				g.setFont(new Font("arial", Font.BOLD, 50));
 				g.drawString("Game OVer!!!", 300, 300);
 				g.setFont(new Font("arial", Font.BOLD, 20));
 				g.drawString("Press Space to Restart or any key to continue", 250, 340);
+				scoreitr++;
+				
 			}
 		}
 		
