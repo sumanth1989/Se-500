@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,8 +46,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private int [] scorestore = new int [10];
 	private int scoreitr = 0;
 	
-	public Gameplay() 
-	{	
+	
+	public Gameplay() throws IOException
+	{   
 		String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
 		difficulty = Integer.parseInt(inputString);
 		addKeyListener(this);
@@ -52,6 +56,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		setFocusTraversalKeysEnabled(false);
 		timer = new Timer(delay, this);
 		timer.start();
+        
 	}
 	
 	public void paint( Graphics g) 
