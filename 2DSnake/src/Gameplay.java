@@ -8,9 +8,7 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -44,13 +42,23 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private int score = 0;
 	private int difficulty;
 	private int [] scorestore = new int [10];
+	private int [] scorestoreeeeeee = new int [10];
 	private int scoreitr = 0;
+	private String Username;
+	private String highscore;
 	
-	
-	public Gameplay() throws IOException
+	public Gameplay(String usr) throws IOException
 	{   
 		String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
 		difficulty = Integer.parseInt(inputString);
+		Username = usr + ".txt";
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(Username));
+		int j = 0;
+		while((highscore = bufferedReader.readLine()) != null && j <10) {
+			scorestoreeeeeee[j] = Integer.parseInt(highscore);
+			j++;
+		}
+		bufferedReader.close();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
