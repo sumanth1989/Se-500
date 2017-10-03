@@ -56,6 +56,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		int j = 0;
 		while((highscore = bufferedReader.readLine()) != null && j <10) {
 			scorestoreeeeeee[j] = Integer.parseInt(highscore);
+			System.out.print(scorestoreeeeeee[j]);
 			j++;
 		}
 		bufferedReader.close();

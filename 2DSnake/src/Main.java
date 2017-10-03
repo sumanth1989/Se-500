@@ -19,6 +19,11 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		JFrame obj = new JFrame();
+		File fileauth = new File(fileName);
+		if (!fileauth.exists()) {
+			fileauth.createNewFile();
+			System.out.println("Created auth file");
+		}
 		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true));
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
 		String init = JOptionPane.showInputDialog(null, "Are you a new user? \n 1 - Yes \n 2 - No");
