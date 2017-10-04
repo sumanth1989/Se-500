@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -46,19 +49,21 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private int scoreitr = 0;
 	private String Username;
 	private String highscore;
+	private String name;
 	
 	public Gameplay(String usr) throws IOException
 	{   
 		String inputString = JOptionPane.showInputDialog(null, "Difficulty:\n 1 - Easy \n 2 - Medium \n 3 - Hard \n");
 		difficulty = Integer.parseInt(inputString);
 		Username = usr + ".txt";
+		name = usr;
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(Username));
 		int j = 0;
 		while((highscore = bufferedReader.readLine()) != null && j <10) {
 			scorestoreeeeeee[j] = Integer.parseInt(highscore);
-			System.out.print(scorestoreeeeeee[j]);
+			System.out.print(scorestoreeeeeee[j]+ "\n");
 			j++;
-		}
+		} 
 		bufferedReader.close();
 		addKeyListener(this);
 		setFocusable(true);
@@ -89,7 +94,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		g.fillRect(875,10, 300, 642);
 		g.setColor(Color.black);
 		g.setFont(new Font("arial", Font.PLAIN, 30));
-		g.drawString("LeaderBoard ", 950, 40);
+		g.drawString(name + "'s High Scores ", 920, 40);
 		g.setColor(Color.WHITE);
 		g.drawRect(876, 11, 299, 55);
 		g.drawRect(876, 75, 299, 575);
@@ -113,11 +118,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 		// leaderboard data
 		Arrays.sort(scorestore);
-		for (int i = 0; i <scoreitr; i++) {
+		Arrays.sort(scorestoreeeeeee);
+		/*for (int i = 0; i <scoreitr; i++) {
 			if ( i < 10) {
 			g.setFont(new Font("arial", Font.PLAIN, 40));
-			g.drawString((i+1)+"	:	" + scorestore[9 - i] , 980, (150 + (i* 60)));
+			g.drawString((i+1)+"	:	" + scorestore[9 - i] + ":" + scorestoreeeeeee[9 - i], 980, (150 + (i* 60)));
 			}
+		} */
+		
+		for (int i = 0; i < 9; i++) {
+			g.setFont(new Font("arial", Font.PLAIN, 40));
+			g.drawString((i+1)+"	:	" + scorestoreeeeeee[9 - i], 980, (150 + (i* 60)));
 		}
 				
 		// length of snake disp
@@ -225,6 +236,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				up = false;
 				down = false;
 				scorestore[scoreitr] = score;
+				if (scorestoreeeeeee[0] < score) {
+					scorestoreeeeeee[0] = score;
+				}
 				g.setColor(Color.white);
 				g.setFont(new Font("arial", Font.BOLD, 50));
 				g.drawString("Game OVer!!!", 300, 300);
@@ -233,6 +247,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				scoreitr++;
 				
 			}
+			
 		}
 		
 		g.dispose();
@@ -359,6 +374,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			score = 0;
 			lengthofsnake = 3;
 			repaint();
+			try {
+				rewrite();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -421,5 +442,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 	
+	}
+	
+	public void rewrite() throws IOException {
+		PrintWriter writer = new PrintWriter(Username);
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(Username, true));
+		writer.print("");
+		writer.close();
+		for (int k = 0 ; k < 10 ; k++) {
+			bufferedWriter.write(String.valueOf(scorestoreeeeeee[k]));
+			bufferedWriter.newLine();
+		}
+		bufferedWriter.newLine();
+		bufferedWriter.close();
+		
 	}
 }

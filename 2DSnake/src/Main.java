@@ -44,8 +44,11 @@ public class Main {
 			if (file.createNewFile()){
 		          System.out.println("Score card has been created successfully");
 		          BufferedWriter buffWrite = new BufferedWriter(new FileWriter(username, true));
-		          buffWrite.write("0");
-		          buffWrite.newLine();
+		          for( int i = 0; i < 9; i++) {
+		        	  buffWrite.write("0");
+			          buffWrite.newLine();
+		          }
+		          
 		          buffWrite.flush();
 		          buffWrite.close();
 		     }
